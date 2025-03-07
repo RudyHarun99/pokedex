@@ -1,34 +1,27 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useAppDispatch } from "@/services/redux";
 import { setPokemons } from "@/services/redux/pokemon.slice";
 import { useQuery } from "@tanstack/react-query";
 import { getPokemons } from "@/api/getPokemons";
 
-export const useGetPokemons = () => {
-  const dispatch = useDispatch();
-  const queryKey = [ '?limit=100000&offset=0' ];
+export const useGetPokemons = (PAGE_SIZE: number) => {
+  const dispatch = useAppDispatch();
+  const [page, setPage] = useState(0); // Track current page/ Store all loaded Pokémon
 
-  const { data, error, isFetching } = useQuery({
-    queryKey,
-    queryFn: getPokemons,
-    retry: (failureCount, error) => {
-      if (error) {
-        console.error('Schema validation error:', error);
-        return false;
-      }
-
-      return failureCount <= 3;
-    },
+  const { data, isLoading } = useQuery({
+    queryKey: ["pokemon", page], // Unique key for each page
+    queryFn: () => getPokemons(page, PAGE_SIZE),
   });
-  
+
   useEffect(() => {
-    dispatch(setPokemons(data));
+    if (data) {
+      dispatch(setPokemons({ data }));
+    };
   }, [data]);
 
   return {
     data,
-    isFetching,
-    error,
-    queryKey,
-  };
+    isLoading,
+    setPage
+  }
 };
