@@ -1,0 +1,35 @@
+$white: #FFFFFF;
+$black: #000000;
+$colors: (
+  'neutral': (
+    25: #FDFDFD,
+    50: #FAFAFA,
+    100: #F5F5F5,
+    200: #E9EAEB,
+    300: #D5D7DA,
+    400: #A4A7AE,
+    500: #717680,
+    600: #535862,
+    700: #414651,
+    800: #252B37,
+    900: #181D27,
+    950: #0A0D12,
+  ),
+  'primary': (
+    100: #FFF5CD,
+    200: #FFE582,
+    300: #FFCB05,
+    400: #D4A904,
+  ),
+  'secondary': (
+    100: #D7E0EF,
+    200: #9AB1D6,
+    300: #3663AD,
+    400: #244273,
+  ),
+  'accent': (
+    Red: #EF171C,
+    Yellow: #FFCB05,
+    Green: #6ACA73,
+  ),
+);
